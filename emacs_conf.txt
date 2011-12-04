@@ -1,0 +1,165 @@
+;; coding system
+;;--------------------------------------------------------------------------
+(setq-default current-language-environment "UTF-8")
+(setq-default locale-coding-system 'utf-8)
+(setq-default pathname-coding-system 'utf-8)
+(setq-default file-name-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-clipboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(set-next-selection-coding-system 'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+
+;; misc
+;;--------------------------------------------------------------------------
+(setq inhibit-startup-message t)        ; no startup page
+(setq-default make-backup-files nil)    ; no backup files
+(setq default-major-mode 'text-mode)    ; use text mode when emacs startup
+(setq-default column-number-mode t)     ; show column number
+(setq-default tab-width 4)              ; tab width
+(setq-default fill-column 80)           ; maximum line width
+(global-font-lock-mode t)               ; syntax highlight
+(fset 'yes-or-no-p 'y-or-n-p)           ; use y/n instead of yes/no
+(transient-mark-mode t)                 ; highlight marked text
+(menu-bar-mode nil)                     ; no menu bar
+(show-paren-mode t)                     ; delimiter matching
+(setq show-paren-style 'parentheses)    ; parentheses matching
+(setq truncate-partial-width-windows t) ; force truncation in all windows
+(setq vc-handled-backends nil)          ; disable vc support
+(ido-mode t)                            ; ido mode 
+(setq gdb-many-windows t)               ; open gdb many windows
+
+;; key
+;;--------------------------------------------------------------------------
+(global-set-key (kbd "C-c k") 'kill-this-buffer)
+(global-set-key [f11] 'compile)
+(global-set-key [f12] 'gdb)
+
+;; load path
+;;--------------------------------------------------------------------------
+(add-to-list 'load-path "~/devel/elisp")
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/emacs-goodies-el")
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/cedet-common")
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/ecb")
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/doxymacs")
+
+;; unicad
+;;--------------------------------------------------------------------------
+(when (locate-library "unicad")
+  (require 'unicad)
+)
+
+;; ibuffer
+;;--------------------------------------------------------------------------
+(when (locate-library "ibuffer")
+  (require 'ibuffer)
+  (global-set-key (kbd "C-x C-b") 'ibuffer)
+)
+
+;; cc-mode
+;;--------------------------------------------------------------------------
+(require 'cc-mode)
+(c-set-offset 'substatement-open 0)
+(c-set-offset 'brace-list-open 0)
+(c-set-offset 'inextern-lang 0)
+;(setq c-backslash-max-column 110)
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (setq c-basic-offset 4)
+            (setq indent-tabs-mode nil)
+            (define-key c-mode-base-map (kbd "C-j") 'newline-and-indent)
+          )
+)
+
+;; load all devel modules
+;;--------------------------------------------------------------------------
+(defun d()
+  (interactive)
+
+  ;; tabbar
+  ;;--------------------------------------------------------
+  (when (locate-library "tabbar")
+    (require 'tabbar)
+    (tabbar-mode t)
+    (global-set-key [f5] 'tabbar-backward-group)
+    (global-set-key [f6] 'tabbar-forward-group)
+    (global-set-key [f7] 'tabbar-backward)
+    (global-set-key [f8] 'tabbar-forward)
+	(setq tabbar-separator (quote (1.0)))
+    (custom-set-faces
+      '(tabbar-default ((t (:inherit variable-pitch 
+                            :background "gray75" 
+                            :foreground "gray50" 
+                            :height 0.8))))
+      '(tabbar-selected ((t (:inherit tabbar-default 
+                             :background "white" 
+                             :foreground "red" 
+                             :box (:line-width 1 :color "white" :style pressed-button)))))
+      '(tabbar-unselected ((t (:inherit tabbar-default 
+                               :background "white" 
+                               :foreground "black" 
+                               :box (:line-width 1 :color "white" :style released-button)))))
+      '(tabbar-separator ((t (:inherit tabbar-default 
+                              :underline nil 
+                              :height 0.1))))
+    )
+  )
+
+  ;; xcscope
+  ;;--------------------------------------------------------
+  (when (locate-library "xcscope")
+    (require 'xcscope)
+    (setq cscope-do-not-update-database t)
+  )
+
+  ;; cedet
+  ;;--------------------------------------------------------
+  (when (locate-library "cedet")
+    (require 'cedet)
+    (semantic-load-enable-minimum-features)
+   ;(semantic-load-enable-code-helpers)
+   ;(semantic-load-enable-guady-code-helpers)
+   ;(semantic-load-enable-excessive-code-helpers)
+   ;(semantic-load-enable-semantic-debugging-helpers)
+    (setq semanticdb-search-system-databases t)
+    (setq semanticdb-default-save-directory
+      (expand-file-name "~/tmp/semantic_caches")
+	)
+  )
+
+  ;; ecb
+  ;;--------------------------------------------------------
+  (when (locate-library "ecb")
+    (require 'ecb)
+    (setq ecb-layout-name "left15")
+    (setq ecb-source-path (quote ("~")))
+    (setq ecb-windows-width 0.25)
+    (setq ecb-tip-of-the-day nil)
+    (setq ecb-version-check nil)
+    (setq ecb-auto-compatibility-check nil)
+	(setq ecb-vc-enable-support nil)
+    (ecb-activate)
+    (global-set-key [f9] 'ecb-toggle-ecb-windows)
+    (global-set-key (kbd "C-c 1") 'ecb-goto-window-directories)
+    (global-set-key (kbd "C-c 2") 'ecb-goto-window-methods)
+    (global-set-key (kbd "C-c 3") 'ecb-goto-window-edit1)
+    (global-set-key (kbd "C-c 4") 'ecb-goto-window-edit2)
+  )
+
+  ;; doxymacs
+  ;;--------------------------------------------------------
+  (when (locate-library "doxymacs")
+    (require 'doxymacs)
+    (add-hook 'c-mode-common-hook 'doxymacs-mode)
+    (add-hook 'font-lock-mode-hook
+              (lambda ()
+                (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
+				  (doxymacs-font-lock)
+                )
+              )
+    )
+  )
+)
