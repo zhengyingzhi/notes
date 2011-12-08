@@ -1,3 +1,5 @@
+;; -*-emacs-lisp-*-
+
 ;; coding system
 ;;--------------------------------------------------------------------------
 (setq-default current-language-environment "UTF-8")
@@ -41,10 +43,10 @@
 ;; load path
 ;;--------------------------------------------------------------------------
 (add-to-list 'load-path "~/devel/elisp")
-(add-to-list 'load-path "/usr/share/emacs/site-lisp/emacs-goodies-el")
-(add-to-list 'load-path "/usr/share/emacs/site-lisp/cedet-common")
-(add-to-list 'load-path "/usr/share/emacs/site-lisp/ecb")
-(add-to-list 'load-path "/usr/share/emacs/site-lisp/doxymacs")
+(add-to-list 'load-path "/usr/share/emacs23/site-lisp/emacs-goodies-el")
+(add-to-list 'load-path "/usr/share/emacs23/site-lisp/cedet-common")
+(add-to-list 'load-path "/usr/share/emacs23/site-lisp/ecb")
+(add-to-list 'load-path "/usr/share/emacs23/site-lisp/doxymacs")
 
 ;; unicad
 ;;--------------------------------------------------------------------------
