@@ -22,6 +22,6 @@ VLC                    GPL       http://www.videolan.org/vlc/                   
 MPC                    GPL       http://sourceforge.net/projects/mpc-hc/              Windows Media Player
 StarDict               GPL       http://stardict.sourceforge.net/                     金山词霸 | 有道词典
 Pidgin                 GPL       http://www.pidgin.im/                                QQ & msn & Yahoo
-DeaDBeeF               GPL       http://deadbeef.sourceforge.net/                     foobar2000
+?                                                                                     foobar2000
 ?                                                                                     Source Insight
 ?                                                                                     迅雷
