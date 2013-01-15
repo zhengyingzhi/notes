@@ -1,7 +1,5 @@
 【/etc/apt/sources.list】
 =============================================================================
-#deb http://ftp.us.debian.org/debian/ squeeze main contrib non-free
-#deb-src http://ftp.us.debian.org/debian/ squeeze main contrib non-free
 deb http://mirrors.163.com/debian/ squeeze main contrib non-free
 deb-src http://mirrors.163.com/debian/ squeeze main contrib non-free
 deb http://security.debian.org/ squeeze/updates main contrib non-free
@@ -15,19 +13,6 @@ apt-get install gcc g++ gdb make tcpdump valgrind git
 apt-get install binutils-doc cpp-doc gcc-doc gdb-doc glibc-doc make-doc
 apt-get install emacs emacs-goodies-el cscope cscope-el doxymacs semantic ecb
 
-【emacs设置】
-=============================================================================
-mkdir /etc/emacs/site-start.d.bak
-mv /etc/emacs/site-start.d/* /etc/emacs/site-start.d.bak/
-
 【时区设置】
 =============================================================================
 dpkg-reconfigure tzdata
-
-【时间设置】（virtualBox上设置虚拟机使用UTC时间，就不用再设置linux的时间）
-=============================================================================
-修改/etc/default/rcS，设置UTC=no
-设置系统时间：      date -s '2011-04-15 09:53:00'
-显示硬件时间：      hwclock --show
-将系统时间写入硬件：hwclock --systohc
-将硬件时间写入系统：hwclock --hctosys
