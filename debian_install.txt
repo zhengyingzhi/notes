@@ -2,13 +2,13 @@
 =============================================================================
 deb http://mirrors.163.com/debian/ squeeze main contrib non-free
 deb-src http://mirrors.163.com/debian/ squeeze main contrib non-free
-deb http://security.debian.org/ squeeze/updates main contrib non-free
-deb-src http://security.debian.org/ squeeze/updates main contrib non-free
+deb http://mirrors.163.com/debian-security squeeze/updates main contrib non-free
+deb-src http://mirrors.163.com/debian-security squeeze/updates main contrib non-free
 
 【开发工具安装】
 =============================================================================
 apt-get install linux-headers-2.6-686
-apt-get install sudo tofrodos dos2unix enca chkconfig
+apt-get install sudo tofrodos dos2unix enca chkconfig iptraf
 apt-get install gcc g++ gdb make tcpdump valgrind git
 apt-get install binutils-doc cpp-doc gcc-doc gdb-doc glibc-doc make-doc
 apt-get install emacs emacs-goodies-el cscope cscope-el doxymacs semantic ecb
