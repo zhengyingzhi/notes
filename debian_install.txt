@@ -11,6 +11,7 @@ apt-get install linux-headers-3.2.0-4-486
 apt-get install sudo tofrodos dos2unix enca chkconfig iptraf
 apt-get install gcc g++ gdb make cscope tcpdump valgrind git
 apt-get install binutils-doc cpp-doc gcc-doc gdb-doc glibc-doc make-doc
+apt-get install libssl-dev libxml2-dev uuid-dev
 apt-get install emacs emacs-goodies-el cscope-el ecb doxymacs
 
 【时区设置】
