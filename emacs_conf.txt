@@ -1,5 +1,8 @@
 ;; -*-emacs-lisp-*-
 
+;; This configuration file is for Emacs 23.4.1 on Debian Wheezy.
+;; Install: apt-get install emacs emacs-goodies-el cscope-el ecb doxymacs
+
 ;; coding system
 ;;--------------------------------------------------------------------------
 (setq-default current-language-environment "UTF-8")
@@ -131,6 +134,7 @@
     (setq ecb-version-check nil)
     (setq ecb-auto-compatibility-check nil)
 	(setq ecb-vc-enable-support nil)
+	(setq ecb-tree-make-parent-node-sticky nil)
     (ecb-activate)
     (global-set-key [f9] 'ecb-toggle-ecb-windows)
     (global-set-key (kbd "C-c 1") 'ecb-goto-window-directories)
