@@ -44,9 +44,8 @@
 ;;--------------------------------------------------------------------------
 (add-to-list 'load-path "~/devel/elisp")
 (add-to-list 'load-path "/usr/share/emacs23/site-lisp/emacs-goodies-el")
-(add-to-list 'load-path "/usr/share/emacs23/site-lisp/cedet-common")
 (add-to-list 'load-path "/usr/share/emacs23/site-lisp/ecb")
-(add-to-list 'load-path "/usr/share/emacs23/site-lisp/doxymacs")
+;(add-to-list 'load-path "/usr/share/emacs23/site-lisp/doxymacs")
 
 ;; unicad
 ;;--------------------------------------------------------------------------
@@ -117,20 +116,9 @@
     (setq cscope-do-not-update-database t)
   )
 
-  ;; cedet
+  ;; buildin cedet
   ;;--------------------------------------------------------
-  (when (locate-library "cedet")
-    (require 'cedet)
-    (semantic-load-enable-minimum-features)
-   ;(semantic-load-enable-code-helpers)
-   ;(semantic-load-enable-guady-code-helpers)
-   ;(semantic-load-enable-excessive-code-helpers)
-   ;(semantic-load-enable-semantic-debugging-helpers)
-    (setq semanticdb-search-system-databases t)
-    (setq semanticdb-default-save-directory
-      (expand-file-name "~/tmp/semantic_caches")
-	)
-  )
+  (semantic-mode 1)
 
   ;; ecb
   ;;--------------------------------------------------------
