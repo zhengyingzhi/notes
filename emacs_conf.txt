@@ -51,6 +51,7 @@
 ;(add-to-list 'load-path "/usr/share/emacs23/site-lisp/doxymacs")
 
 ;; unicad
+;; https://code.google.com/p/unicad/
 ;;--------------------------------------------------------------------------
 (when (locate-library "unicad")
   (require 'unicad)
