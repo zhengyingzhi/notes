@@ -2,12 +2,12 @@
 =============================================================================
 deb http://mirrors.163.com/debian/ wheezy main contrib non-free
 deb-src http://mirrors.163.com/debian/ wheezy main contrib non-free
-deb http://mirrors.163.com/debian-security wheezy/updates main contrib non-free
-deb-src http://mirrors.163.com/debian-security wheezy/updates main contrib non-free
+#deb http://mirrors.163.com/debian-security wheezy/updates main contrib non-free
+#deb-src http://mirrors.163.com/debian-security wheezy/updates main contrib non-free
 
 【开发工具安装】
 =============================================================================
-apt-get install linux-headers-3.2.0-4-486
+apt-get install linux-image-3.2.0-4-686-pae
 apt-get install sudo tofrodos dos2unix enca chkconfig iptraf
 apt-get install gcc g++ gdb make cscope tcpdump valgrind git
 apt-get install binutils-doc cpp-doc gcc-doc gdb-doc glibc-doc make-doc
