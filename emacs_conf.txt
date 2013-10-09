@@ -25,7 +25,7 @@
 (setq default-major-mode 'text-mode)    ; use text mode when emacs startup
 (setq-default column-number-mode t)     ; show column number
 (setq-default tab-width 4)              ; tab width
-(setq-default fill-column 80)           ; maximum line width
+(setq default-fill-column 80)           ; maximum line width
 (global-font-lock-mode t)               ; syntax highlight
 (fset 'yes-or-no-p 'y-or-n-p)           ; use y/n instead of yes/no
 (transient-mark-mode t)                 ; highlight marked text
@@ -48,7 +48,7 @@
 (add-to-list 'load-path "~/devel/elisp")
 (add-to-list 'load-path "/usr/share/emacs23/site-lisp/emacs-goodies-el")
 (add-to-list 'load-path "/usr/share/emacs23/site-lisp/ecb")
-;(add-to-list 'load-path "/usr/share/emacs23/site-lisp/doxymacs")
+(add-to-list 'load-path "/usr/share/emacs23/site-lisp/doxymacs")
 
 ;; unicad
 ;; https://code.google.com/p/unicad/
@@ -70,13 +70,12 @@
 (c-set-offset 'substatement-open 0)
 (c-set-offset 'brace-list-open 0)
 (c-set-offset 'inextern-lang 0)
-;(setq c-backslash-max-column 110)
 (add-hook 'c-mode-common-hook
           (lambda ()
             (setq c-basic-offset 4)
             (setq indent-tabs-mode nil)
             (define-key c-mode-base-map (kbd "C-j") 'newline-and-indent)
-          )
+		  )
 )
 
 ;; load all devel modules
@@ -148,6 +147,20 @@
   ;;--------------------------------------------------------
   (when (locate-library "doxymacs")
     (require 'doxymacs)
+	(setq doxymacs-doxygen-style "JavaDoc")
+	(setq doxymacs-command-character "\\")
+	(setq doxymacs-blank-singleline-comment-template '("/** " p " */"))
+	(setq doxymacs-blank-multiline-comment-template '("/**" > n "* " p > n "* " > n "*/" >))
+	(setq doxymacs-file-comment-template
+	   '("/**" > n
+		 " * " (doxymacs-doxygen-command-char) "file   "
+		 (if (buffer-file-name)
+			 (file-name-nondirectory (buffer-file-name))
+		   "") > n
+		   " * " > n
+		   " * " (doxymacs-doxygen-command-char) "brief  " p > n
+		   " * " > n
+		   " */" > n))
     (add-hook 'c-mode-common-hook 'doxymacs-mode)
     (add-hook 'font-lock-mode-hook
               (lambda ()
