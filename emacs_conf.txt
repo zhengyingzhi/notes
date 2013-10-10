@@ -2,6 +2,7 @@
 
 ;; This configuration file is for Emacs 23.4.1 on Debian Wheezy.
 ;; Install: apt-get install emacs emacs-goodies-el cscope-el ecb doxymacs
+;; unicad:  https://code.google.com/p/unicad/
 
 ;; coding system
 ;;--------------------------------------------------------------------------
@@ -51,7 +52,6 @@
 (add-to-list 'load-path "/usr/share/emacs23/site-lisp/doxymacs")
 
 ;; unicad
-;; https://code.google.com/p/unicad/
 ;;--------------------------------------------------------------------------
 (when (locate-library "unicad")
   (require 'unicad)
@@ -75,7 +75,7 @@
             (setq c-basic-offset 4)
             (setq indent-tabs-mode nil)
             (define-key c-mode-base-map (kbd "C-j") 'newline-and-indent)
-		  )
+          )
 )
 
 ;; load all devel modules
@@ -92,7 +92,7 @@
     (global-set-key [f6] 'tabbar-forward-group)
     (global-set-key [f7] 'tabbar-backward)
     (global-set-key [f8] 'tabbar-forward)
-	(setq tabbar-separator (quote (1.0)))
+    (setq tabbar-separator (quote (1.0)))
     (custom-set-faces
       '(tabbar-default ((t (:inherit variable-pitch 
                             :background "gray75" 
@@ -133,8 +133,8 @@
     (setq ecb-tip-of-the-day nil)
     (setq ecb-version-check nil)
     (setq ecb-auto-compatibility-check nil)
-	(setq ecb-vc-enable-support nil)
-	(setq ecb-tree-make-parent-node-sticky nil)
+    (setq ecb-vc-enable-support nil)
+    (setq ecb-tree-make-parent-node-sticky nil)
     (ecb-activate)
     (global-set-key [f9] 'ecb-toggle-ecb-windows)
     (global-set-key (kbd "C-c 1") 'ecb-goto-window-directories)
@@ -147,25 +147,28 @@
   ;;--------------------------------------------------------
   (when (locate-library "doxymacs")
     (require 'doxymacs)
-	(setq doxymacs-doxygen-style "JavaDoc")
-	(setq doxymacs-command-character "\\")
-	(setq doxymacs-blank-singleline-comment-template '("/** " p " */"))
-	(setq doxymacs-blank-multiline-comment-template '("/**" > n "* " p > n "* " > n "*/" >))
-	(setq doxymacs-file-comment-template
-	   '("/**" > n
-		 " * " (doxymacs-doxygen-command-char) "file   "
-		 (if (buffer-file-name)
-			 (file-name-nondirectory (buffer-file-name))
-		   "") > n
-		   " * " > n
-		   " * " (doxymacs-doxygen-command-char) "brief  " p > n
-		   " * " > n
-		   " */" > n))
+    (setq doxymacs-doxygen-style "JavaDoc")
+    (setq doxymacs-command-character "\\")
+    (setq doxymacs-blank-singleline-comment-template '("/** " p " */"))
+    (setq doxymacs-blank-multiline-comment-template '("/**" > n "* " p > n "* " > n "*/" >))
+    (setq doxymacs-file-comment-template
+       '("/**" > n
+         " * " (doxymacs-doxygen-command-char) "file   "
+         (if (buffer-file-name)
+             (file-name-nondirectory (buffer-file-name))
+             ""
+         ) > n
+         " * " > n
+         " * " (doxymacs-doxygen-command-char) "brief  " p > n
+         " * " > n
+         " */" > n
+        )
+    )
     (add-hook 'c-mode-common-hook 'doxymacs-mode)
     (add-hook 'font-lock-mode-hook
               (lambda ()
                 (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
-				  (doxymacs-font-lock)
+                  (doxymacs-font-lock)
                 )
               )
     )

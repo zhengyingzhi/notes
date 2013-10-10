@@ -7,8 +7,8 @@ deb-src http://mirrors.sohu.com/debian-security wheezy/updates main contrib non-
 
 【开发工具安装】
 =============================================================================
-apt-get install linux-headers-686-pae
-apt-get install sudo tofrodos dos2unix enca chkconfig iptraf
+apt-get install linux-headers-amd64
+apt-get install sudo openssh-server tofrodos dos2unix enca chkconfig iptraf
 apt-get install gcc g++ gdb make cscope tcpdump valgrind git
 apt-get install binutils-doc cpp-doc gcc-doc gdb-doc glibc-doc make-doc
 apt-get install libssl-dev libxml2-dev uuid-dev
