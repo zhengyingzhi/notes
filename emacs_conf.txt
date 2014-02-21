@@ -64,6 +64,17 @@
   (global-set-key (kbd "C-x C-b") 'ibuffer)
 )
 
+;; hexl-mode
+;;--------------------------------------------------------------------------
+(global-set-key [f3] 'toggle-hexl)
+(defun toggle-hexl()
+  (interactive)
+  (if (string= mode-name "Hexl")
+      (hexl-mode-exit)
+    (hexl-mode)
+  )
+)
+
 ;; cc-mode
 ;;--------------------------------------------------------------------------
 (require 'cc-mode)
