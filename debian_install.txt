@@ -1,33 +1,28 @@
-/etc/apt/sources.list
-=============================================================================
-deb http://download.virtualbox.org/virtualbox/debian wheezy contrib
-deb http://mirrors.163.com/debian/ wheezy main contrib non-free
-deb-src http://mirrors.163.com/debian/ wheezy main contrib non-free
-deb http://mirrors.163.com/debian-security wheezy/updates main contrib non-free
-deb-src http://mirrors.163.com/debian-security wheezy/updates main contrib non-free
-#deb http://mirrors.sohu.com/debian/ wheezy main contrib non-free
-#deb-src http://mirrors.sohu.com/debian/ wheezy main contrib non-free
-#deb http://mirrors.sohu.com/debian-security wheezy/updates main contrib non-free
-#deb-src http://mirrors.sohu.com/debian-security wheezy/updates main contrib non-free
-
-Oracle public key for apt-secure
-=============================================================================
-wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -
-
 Set timezone
 =============================================================================
 dpkg-reconfigure tzdata
 
-Install Applications
+Oracle public key for virtualbox guest tools
+=============================================================================
+wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -
+
+/etc/apt/sources.list
+=============================================================================
+deb http://mirrors.163.com/debian/ jessie main contrib non-free
+deb-src http://mirrors.163.com/debian/ jessie main contrib non-free
+deb http://mirrors.163.com/debian-security jessie/updates main contrib non-free
+deb-src http://mirrors.163.com/debian-security jessie/updates main contrib non-free
+deb http://download.virtualbox.org/virtualbox/debian jessie contrib
+
+Install App
 =============================================================================
 apt-get install linux-headers-amd64
 apt-get install sudo openssh-server tofrodos dos2unix enca chkconfig iptraf
-apt-get install gcc g++ gdb make cscope tcpdump valgrind git
+apt-get install gcc g++ gdb make cscope tcpdump valgrind git golang 
 apt-get install binutils-doc cpp-doc gcc-doc gdb-doc glibc-doc make-doc
-apt-get install libssl-dev libxml2-dev uuid-dev
-apt-get install emacs emacs-goodies-el cscope-el ecb doxymacs
+apt-get install emacs-nox emacs-goodies-el cscope-el ecb golang-mode lua-mode
 apt-get install virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
 
 /etc/rc.local
 =============================================================================
-mount -t vboxsf -o uid=1000,gid=1000 _virtualbox_shared /home/caikelun/shared
+mount.vboxsf -o rw,uid=1000,gid=1000 111 /home/caikelun/111
