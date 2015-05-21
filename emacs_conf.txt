@@ -30,7 +30,7 @@
 (global-font-lock-mode t)               ; syntax highlight
 (fset 'yes-or-no-p 'y-or-n-p)           ; use y/n instead of yes/no
 (transient-mark-mode t)                 ; highlight marked text
-(menu-bar-mode nil)                     ; no menu bar
+(menu-bar-mode -1)                      ; no menu bar
 (show-paren-mode t)                     ; delimiter matching
 (setq show-paren-style 'parentheses)    ; parentheses matching
 (setq truncate-partial-width-windows t) ; force truncation in all windows
@@ -41,21 +41,23 @@
 ;; key
 ;;--------------------------------------------------------------------------
 (global-set-key (kbd "C-c k") 'kill-this-buffer)
+;(global-set-key (kbd "C-2") 'set-mark-command)
 (global-set-key [f11] 'compile)
 (global-set-key [f12] 'gdb)
 
 ;; load path
 ;;--------------------------------------------------------------------------
-(add-to-list 'load-path "~/devel/elisp")
-(add-to-list 'load-path "/usr/share/emacs23/site-lisp/emacs-goodies-el")
-(add-to-list 'load-path "/usr/share/emacs23/site-lisp/ecb")
-(add-to-list 'load-path "/usr/share/emacs23/site-lisp/doxymacs")
+;(add-to-list 'load-path "~/devel/elisp")
+(add-to-list 'load-path "/usr/share/emacs24/site-lisp/emacs-goodies-el")
+(add-to-list 'load-path "/usr/share/emacs24/site-lisp/ecb")
+;(add-to-list 'load-path "/usr/share/emacs24/site-lisp/golang-mode")
+;(add-to-list 'load-path "/usr/share/emacs24/site-lisp/doxymacs")
 
 ;; unicad
 ;;--------------------------------------------------------------------------
-(when (locate-library "unicad")
-  (require 'unicad)
-)
+;(when (locate-library "unicad")
+;  (require 'unicad)
+;)
 
 ;; ibuffer
 ;;--------------------------------------------------------------------------
@@ -86,6 +88,15 @@
             (setq c-basic-offset 4)
             (setq indent-tabs-mode nil)
             (define-key c-mode-base-map (kbd "C-j") 'newline-and-indent)
+          )
+)
+
+;; lua-mode
+;;--------------------------------------------------------------------------
+(add-hook 'lua-mode-hook
+          (lambda ()
+	        (setq lua-indent-level 4)
+            (setq indent-tabs-mode nil)
           )
 )
 
@@ -154,34 +165,8 @@
     (global-set-key (kbd "C-c 4") 'ecb-goto-window-edit2)
   )
 
-  ;; doxymacs
-  ;;--------------------------------------------------------
-  (when (locate-library "doxymacs")
-    (require 'doxymacs)
-    (setq doxymacs-doxygen-style "JavaDoc")
-    (setq doxymacs-command-character "\\")
-    (setq doxymacs-blank-singleline-comment-template '("/** " p " */"))
-    (setq doxymacs-blank-multiline-comment-template '("/**" > n "* " p > n "* " > n "*/" >))
-    (setq doxymacs-file-comment-template
-       '("/**" > n
-         " * " (doxymacs-doxygen-command-char) "file   "
-         (if (buffer-file-name)
-             (file-name-nondirectory (buffer-file-name))
-             ""
-         ) > n
-         " * " > n
-         " * " (doxymacs-doxygen-command-char) "brief  " p > n
-         " * " > n
-         " */" > n
-        )
-    )
-    (add-hook 'c-mode-common-hook 'doxymacs-mode)
-    (add-hook 'font-lock-mode-hook
-              (lambda ()
-                (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
-                  (doxymacs-font-lock)
-                )
-              )
-    )
+  ;; go mode
+  (when (locate-library "go-mode-load")
+	(require 'go-mode-load)
   )
 )
