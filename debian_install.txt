@@ -1,28 +1,29 @@
-Set timezone
+/etc/apt/sources.list
+=============================================================================
+deb http://ftp.cn.debian.org/debian/ stretch main
+deb-src http://ftp.cn.debian.org/debian/ stretch main
+deb http://security.debian.org/debian-security stretch/updates main
+deb-src http://security.debian.org/debian-security stretch/updates main
+deb http://ftp.cn.debian.org/debian/ stretch-updates main
+deb-src http://ftp.cn.debian.org/debian/ stretch-updates main
+
+
+set timezone
 =============================================================================
 dpkg-reconfigure tzdata
 
-Oracle public key for virtualbox guest tools
-=============================================================================
-wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -
 
-/etc/apt/sources.list
-=============================================================================
-deb http://mirrors.163.com/debian/ jessie main contrib non-free
-deb-src http://mirrors.163.com/debian/ jessie main contrib non-free
-deb http://mirrors.163.com/debian-security jessie/updates main contrib non-free
-deb-src http://mirrors.163.com/debian-security jessie/updates main contrib non-free
-deb http://download.virtualbox.org/virtualbox/debian jessie contrib
-
-Install App
+install packages
 =============================================================================
 apt-get install linux-headers-amd64
-apt-get install sudo openssh-server tofrodos dos2unix enca chkconfig iptraf
-apt-get install gcc g++ gdb make cscope tcpdump valgrind git golang 
-apt-get install binutils-doc cpp-doc gcc-doc gdb-doc glibc-doc make-doc
-apt-get install emacs-nox emacs-goodies-el cscope-el ecb golang-mode lua-mode
-apt-get install virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
+apt-get install sudo openssh-server tofrodos dos2unix enca iptraf
+apt-get install gcc g++ gdb make cscope tcpdump valgrind git golang
+apt-get install emacs-nox emacs-goodies-el cscope-el ecb golang-mode lua-mode scala-mode-el
 
-/etc/rc.local
+
+add share folder
 =============================================================================
-mount.vboxsf -o rw,uid=1000,gid=1000 111 /home/caikelun/111
+echo "deb http://download.virtualbox.org/virtualbox/debian jessie contrib" >> /etc/apt/sources.list
+apt-get install virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
+wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -
+echo "mount.vboxsf -o rw,uid=1000,gid=1000 111 /home/caikelun/111" >> /etc/rc.local

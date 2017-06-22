@@ -1,6 +1,6 @@
 ;; -*-emacs-lisp-*-
 
-;; This configuration file is for Emacs 23.4.1 on Debian Wheezy.
+;; This configuration file is for Emacs 24 on Debian Wheezy.
 ;; Install: apt-get install emacs emacs-goodies-el cscope-el ecb doxymacs
 ;; unicad:  https://code.google.com/p/unicad/
 
@@ -47,7 +47,8 @@
 
 ;; load path
 ;;--------------------------------------------------------------------------
-;(add-to-list 'load-path "~/devel/elisp")
+(add-to-list 'load-path "~/devel/elisp")
+(add-to-list 'load-path "~/devel/elisp/emacs-scala-mode")
 (add-to-list 'load-path "/usr/share/emacs24/site-lisp/emacs-goodies-el")
 (add-to-list 'load-path "/usr/share/emacs24/site-lisp/ecb")
 ;(add-to-list 'load-path "/usr/share/emacs24/site-lisp/golang-mode")
@@ -55,9 +56,9 @@
 
 ;; unicad
 ;;--------------------------------------------------------------------------
-;(when (locate-library "unicad")
-;  (require 'unicad)
-;)
+(when (locate-library "unicad")
+  (require 'unicad)
+)
 
 ;; ibuffer
 ;;--------------------------------------------------------------------------
@@ -87,7 +88,7 @@
           (lambda ()
             (setq c-basic-offset 4)
             (setq indent-tabs-mode nil)
-            (define-key c-mode-base-map (kbd "C-j") 'newline-and-indent)
+            (define-key c-mode-base-map (kbd "RET") 'newline-and-indent)
           )
 )
 
@@ -98,6 +99,22 @@
 	        (setq lua-indent-level 4)
             (setq indent-tabs-mode nil)
           )
+)
+
+;; scala mode
+;;--------------------------------------------------------------------------
+(require 'scala-mode)
+(add-hook 'scala-mode-hook 
+		  (lambda ()
+			(setq scala-indent:step 4)
+			(setq indent-tabs-mode nil)
+			(define-key scala-mode-map (kbd "RET") 'newline-and-indent)
+		  )
+)
+
+;; go mode
+(when (locate-library "go-mode-load")
+  (require 'go-mode-load)
 )
 
 ;; load all devel modules
@@ -144,13 +161,14 @@
   ;; buildin cedet
   ;;--------------------------------------------------------
   (semantic-mode 1)
-
+  (global-semantic-idle-scheduler-mode 1)
+  
   ;; ecb
   ;;--------------------------------------------------------
   (when (locate-library "ecb")
     (require 'ecb)
     (setq ecb-layout-name "left15")
-    (setq ecb-source-path (quote ("~")))
+    (setq ecb-source-path (quote ("~" "/data")))
     (setq ecb-windows-width 0.25)
     (setq ecb-tip-of-the-day nil)
     (setq ecb-version-check nil)
@@ -163,10 +181,12 @@
     (global-set-key (kbd "C-c 2") 'ecb-goto-window-methods)
     (global-set-key (kbd "C-c 3") 'ecb-goto-window-edit1)
     (global-set-key (kbd "C-c 4") 'ecb-goto-window-edit2)
-  )
+	)
 
-  ;; go mode
-  (when (locate-library "go-mode-load")
-	(require 'go-mode-load)
-  )
+  (when (locate-library "doxygen")
+	(require 'doxygen)
+	(global-set-key (kbd "C-c d c") 'doxygen-insert-comment)
+	(global-set-key (kbd "C-c d F") 'doxygen-insert-file-comment)
+	(global-set-key (kbd "C-c d f") 'doxygen-insert-function-comment)
+	)
 )
