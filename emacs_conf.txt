@@ -68,10 +68,10 @@
   (c-set-offset 'brace-list-open 0)
   (c-set-offset 'inextern-lang 0)
   (add-hook 'c-mode-common-hook
-			(lambda ()
-			  (setq c-basic-offset 4)
-			  (setq indent-tabs-mode nil)
-			  (define-key c-mode-base-map (kbd "RET") 'newline-and-indent))))
+            (lambda ()
+              (setq c-basic-offset 4)
+              (setq indent-tabs-mode nil)
+              (define-key c-mode-base-map (kbd "RET") 'newline-and-indent))))
 
 ;; go mode
 ;;--------------------------------------------------------------------------
@@ -83,19 +83,19 @@
 (when (locate-library "lua-mode")
   (require 'lua-mode)
   (add-hook 'lua-mode-hook
-			(lambda ()
-			  (setq lua-indent-level 4)
-			  (setq indent-tabs-mode nil))))
+            (lambda ()
+              (setq lua-indent-level 4)
+              (setq indent-tabs-mode nil))))
 
 ;; scala mode
 ;;--------------------------------------------------------------------------
 (when (locate-library "scala-mode")
   (require 'scala-mode)
   (add-hook 'scala-mode-hook 
-			(lambda ()
-			  (setq scala-mode-indent:step 4)
-			  (setq indent-tabs-mode nil)
-			  (define-key scala-mode-map (kbd "RET") 'newline-and-indent))))
+            (lambda ()
+              (setq scala-mode-indent:step 4)
+              (setq indent-tabs-mode nil)
+              (define-key scala-mode-map (kbd "RET") 'newline-and-indent))))
 
 ;; load all devel modules
 ;;--------------------------------------------------------------------------
@@ -106,6 +106,7 @@
   ;;--------------------------------------------------------
   (when (locate-library "tabbar")
     (require 'tabbar)
+    (setq mouse-wheel-mode nil)
     (tabbar-mode t)
     (global-set-key [f5] 'tabbar-backward-group)
     (global-set-key [f6] 'tabbar-forward-group)
@@ -113,10 +114,10 @@
     (global-set-key [f8] 'tabbar-forward)
     (setq tabbar-separator (quote (1.0)))
     (custom-set-faces
-	 '(tabbar-default ((t (:inherit variable-pitch :background "gray75" :foreground "gray50" :height 0.8))))
-	 '(tabbar-selected ((t (:inherit tabbar-default :background "white" :foreground "red" :box (:line-width 1 :color "white" :style pressed-button)))))
-	 '(tabbar-unselected ((t (:inherit tabbar-default :background "white" :foreground "black" :box (:line-width 1 :color "white" :style released-button)))))
-	 '(tabbar-separator ((t (:inherit tabbar-default :underline nil :height 0.1))))))
+     '(tabbar-default ((t (:inherit variable-pitch :background "gray75" :foreground "gray50" :height 0.8))))
+     '(tabbar-selected ((t (:inherit tabbar-default :background "white" :foreground "red" :box (:line-width 1 :color "white" :style pressed-button)))))
+     '(tabbar-unselected ((t (:inherit tabbar-default :background "white" :foreground "black" :box (:line-width 1 :color "white" :style released-button)))))
+     '(tabbar-separator ((t (:inherit tabbar-default :underline nil :height 0.1))))))
 
   ;; xcscope
   ;;--------------------------------------------------------
@@ -151,8 +152,8 @@
   ;; doxygen
   ;;--------------------------------------------------------
   (when (locate-library "doxygen")
-	(require 'doxygen)
-	(global-set-key (kbd "C-c d c") 'doxygen-insert-comment)
-	(global-set-key (kbd "C-c d F") 'doxygen-insert-file-comment)
-	(global-set-key (kbd "C-c d f") 'doxygen-insert-function-comment))
+    (require 'doxygen)
+    (global-set-key (kbd "C-c d c") 'doxygen-insert-comment)
+    (global-set-key (kbd "C-c d F") 'doxygen-insert-file-comment)
+    (global-set-key (kbd "C-c d f") 'doxygen-insert-function-comment))
 )
