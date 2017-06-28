@@ -1,7 +1,7 @@
 ;; -*-emacs-lisp-*-
 
-;; This configuration file is for Emacs 24 on Debian Wheezy.
-;; Install: apt-get install emacs emacs-goodies-el cscope-el ecb doxymacs
+;; This configuration file is for Emacs 24 on Debian 9.
+;; Install: apt-get install emacs-nox emacs-goodies-el cscope-el ecb golang-mode lua-mode scala-mode-el
 ;; unicad:  https://code.google.com/p/unicad/
 
 ;; coding system
@@ -45,77 +45,57 @@
 (global-set-key [f11] 'compile)
 (global-set-key [f12] 'gdb)
 
-;; load path
+;; custom load path
 ;;--------------------------------------------------------------------------
 (add-to-list 'load-path "~/devel/elisp")
-(add-to-list 'load-path "/usr/share/emacs24/site-lisp/emacs-goodies-el")
-(add-to-list 'load-path "/usr/share/emacs24/site-lisp/ecb")
-;(add-to-list 'load-path "/usr/share/emacs24/site-lisp/golang-mode")
-;(add-to-list 'load-path "/usr/share/emacs24/site-lisp/doxymacs")
 
 ;; unicad
 ;;--------------------------------------------------------------------------
 (when (locate-library "unicad")
-  (require 'unicad)
-)
+  (require 'unicad))
 
 ;; ibuffer
 ;;--------------------------------------------------------------------------
 (when (locate-library "ibuffer")
   (require 'ibuffer)
-  (global-set-key (kbd "C-x C-b") 'ibuffer)
-)
+  (global-set-key (kbd "C-x C-b") 'ibuffer))
 
-;; hexl-mode
+;; cc mode
 ;;--------------------------------------------------------------------------
-(global-set-key [f3] 'toggle-hexl)
-(defun toggle-hexl()
-  (interactive)
-  (if (string= mode-name "Hexl")
-      (hexl-mode-exit)
-    (hexl-mode)
-  )
-)
-
-;; cc-mode
-;;--------------------------------------------------------------------------
-(require 'cc-mode)
-(c-set-offset 'substatement-open 0)
-(c-set-offset 'brace-list-open 0)
-(c-set-offset 'inextern-lang 0)
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (setq c-basic-offset 4)
-            (setq indent-tabs-mode nil)
-            (define-key c-mode-base-map (kbd "RET") 'newline-and-indent)
-          )
-)
-
-;; lua-mode
-;;--------------------------------------------------------------------------
-(add-hook 'lua-mode-hook
-          (lambda ()
-	        (setq lua-indent-level 4)
-            (setq indent-tabs-mode nil)
-          )
-)
-
-;; scala mode
-;;--------------------------------------------------------------------------
-(require 'scala-mode)
-(add-hook 'scala-mode-hook 
-		  (lambda ()
-			(setq scala-mode-indent:step 4)
-			(setq indent-tabs-mode nil)
-			(define-key scala-mode-map (kbd "RET") 'newline-and-indent)
-		  )
-)
+(when (locate-library "cc-mode")
+  (require 'cc-mode)
+  (c-set-offset 'substatement-open 0)
+  (c-set-offset 'brace-list-open 0)
+  (c-set-offset 'inextern-lang 0)
+  (add-hook 'c-mode-common-hook
+			(lambda ()
+			  (setq c-basic-offset 4)
+			  (setq indent-tabs-mode nil)
+			  (define-key c-mode-base-map (kbd "RET") 'newline-and-indent))))
 
 ;; go mode
 ;;--------------------------------------------------------------------------
 (when (locate-library "go-mode-load")
-  (require 'go-mode-load)
-)
+  (require 'go-mode-load))
+
+;; lua mode
+;;--------------------------------------------------------------------------
+(when (locate-library "lua-mode")
+  (require 'lua-mode)
+  (add-hook 'lua-mode-hook
+			(lambda ()
+			  (setq lua-indent-level 4)
+			  (setq indent-tabs-mode nil))))
+
+;; scala mode
+;;--------------------------------------------------------------------------
+(when (locate-library "scala-mode")
+  (require 'scala-mode)
+  (add-hook 'scala-mode-hook 
+			(lambda ()
+			  (setq scala-mode-indent:step 4)
+			  (setq indent-tabs-mode nil)
+			  (define-key scala-mode-map (kbd "RET") 'newline-and-indent))))
 
 ;; load all devel modules
 ;;--------------------------------------------------------------------------
@@ -133,30 +113,16 @@
     (global-set-key [f8] 'tabbar-forward)
     (setq tabbar-separator (quote (1.0)))
     (custom-set-faces
-      '(tabbar-default ((t (:inherit variable-pitch 
-                            :background "gray75" 
-                            :foreground "gray50" 
-                            :height 0.8))))
-      '(tabbar-selected ((t (:inherit tabbar-default 
-                             :background "white" 
-                             :foreground "red" 
-                             :box (:line-width 1 :color "white" :style pressed-button)))))
-      '(tabbar-unselected ((t (:inherit tabbar-default 
-                               :background "white" 
-                               :foreground "black" 
-                               :box (:line-width 1 :color "white" :style released-button)))))
-      '(tabbar-separator ((t (:inherit tabbar-default 
-                              :underline nil 
-                              :height 0.1))))
-    )
-  )
+	 '(tabbar-default ((t (:inherit variable-pitch :background "gray75" :foreground "gray50" :height 0.8))))
+	 '(tabbar-selected ((t (:inherit tabbar-default :background "white" :foreground "red" :box (:line-width 1 :color "white" :style pressed-button)))))
+	 '(tabbar-unselected ((t (:inherit tabbar-default :background "white" :foreground "black" :box (:line-width 1 :color "white" :style released-button)))))
+	 '(tabbar-separator ((t (:inherit tabbar-default :underline nil :height 0.1))))))
 
   ;; xcscope
   ;;--------------------------------------------------------
   (when (locate-library "xcscope")
     (require 'xcscope)
-    (setq cscope-do-not-update-database t)
-  )
+    (setq cscope-do-not-update-database t))
 
   ;; buildin cedet
   ;;--------------------------------------------------------
@@ -180,8 +146,7 @@
     (global-set-key (kbd "C-c 1") 'ecb-goto-window-directories)
     (global-set-key (kbd "C-c 2") 'ecb-goto-window-methods)
     (global-set-key (kbd "C-c 3") 'ecb-goto-window-edit1)
-    (global-set-key (kbd "C-c 4") 'ecb-goto-window-edit2)
-	)
+    (global-set-key (kbd "C-c 4") 'ecb-goto-window-edit2))
 
   ;; doxygen
   ;;--------------------------------------------------------
@@ -189,6 +154,5 @@
 	(require 'doxygen)
 	(global-set-key (kbd "C-c d c") 'doxygen-insert-comment)
 	(global-set-key (kbd "C-c d F") 'doxygen-insert-file-comment)
-	(global-set-key (kbd "C-c d f") 'doxygen-insert-function-comment)
-	)
+	(global-set-key (kbd "C-c d f") 'doxygen-insert-function-comment))
 )
