@@ -48,7 +48,6 @@
 ;; load path
 ;;--------------------------------------------------------------------------
 (add-to-list 'load-path "~/devel/elisp")
-(add-to-list 'load-path "~/devel/elisp/emacs-scala-mode")
 (add-to-list 'load-path "/usr/share/emacs24/site-lisp/emacs-goodies-el")
 (add-to-list 'load-path "/usr/share/emacs24/site-lisp/ecb")
 ;(add-to-list 'load-path "/usr/share/emacs24/site-lisp/golang-mode")
@@ -106,13 +105,14 @@
 (require 'scala-mode)
 (add-hook 'scala-mode-hook 
 		  (lambda ()
-			(setq scala-indent:step 4)
+			(setq scala-mode-indent:step 4)
 			(setq indent-tabs-mode nil)
 			(define-key scala-mode-map (kbd "RET") 'newline-and-indent)
 		  )
 )
 
 ;; go mode
+;;--------------------------------------------------------------------------
 (when (locate-library "go-mode-load")
   (require 'go-mode-load)
 )
@@ -168,7 +168,7 @@
   (when (locate-library "ecb")
     (require 'ecb)
     (setq ecb-layout-name "left15")
-    (setq ecb-source-path (quote ("~" "/data")))
+    (setq ecb-source-path (quote ("~")))
     (setq ecb-windows-width 0.25)
     (setq ecb-tip-of-the-day nil)
     (setq ecb-version-check nil)
@@ -183,6 +183,8 @@
     (global-set-key (kbd "C-c 4") 'ecb-goto-window-edit2)
 	)
 
+  ;; doxygen
+  ;;--------------------------------------------------------
   (when (locate-library "doxygen")
 	(require 'doxygen)
 	(global-set-key (kbd "C-c d c") 'doxygen-insert-comment)
