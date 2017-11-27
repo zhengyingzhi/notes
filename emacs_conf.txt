@@ -1,8 +1,29 @@
 ;; -*-emacs-lisp-*-
 
-;; This configuration file is for Emacs 24 on Debian 9.
-;; Install: apt-get install emacs-nox emacs-goodies-el cscope-el ecb golang-mode lua-mode scala-mode-el
-;; unicad:  https://code.google.com/p/unicad/
+(require 'package)
+(add-to-list 'package-archives '("gnu" . "http://elpa.emacs-china.org/gnu/"))
+(add-to-list 'package-archives '("melpa" . "http://elpa.emacs-china.org/melpa/"))
+;;(add-to-list 'package-archives '("melpa" . "http://elpa.emacs-china.org/melpa-stable/"))
+;;(add-to-list 'package-archives '("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/"))
+;;(add-to-list 'package-archives '("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/"))
+;;(add-to-list 'package-archives '("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa-stable/"))
+;;(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
+;;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+;;(add-to-list 'package-archives '("melpa" . "http://stable.melpa.org/packages/"))
+
+;; install packages
+(defun my-package-install()
+  (interactive)
+  (package-initialize)
+  (setq package-list '(ecb xcscope tabbar go-mode scala-mode))
+  (dolist (package package-list)
+	(package-install package)))
+
+;; unicad
+;;--------------------------------------------------------------------------
+;(add-to-list 'load-path "~/devel/elisp")
+;(when (locate-library "unicad")
+;  (require 'unicad))
 
 ;; coding system
 ;;--------------------------------------------------------------------------
@@ -41,24 +62,7 @@
 ;; key
 ;;--------------------------------------------------------------------------
 (global-set-key (kbd "C-c k") 'kill-this-buffer)
-;(global-set-key (kbd "C-2") 'set-mark-command)
-(global-set-key [f11] 'compile)
-(global-set-key [f12] 'gdb)
-
-;; custom load path
-;;--------------------------------------------------------------------------
-(add-to-list 'load-path "~/devel/elisp")
-
-;; unicad
-;;--------------------------------------------------------------------------
-(when (locate-library "unicad")
-  (require 'unicad))
-
-;; ibuffer
-;;--------------------------------------------------------------------------
-(when (locate-library "ibuffer")
-  (require 'ibuffer)
-  (global-set-key (kbd "C-x C-b") 'ibuffer))
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; cc mode
 ;;--------------------------------------------------------------------------
@@ -72,20 +76,6 @@
               (setq c-basic-offset 4)
               (setq indent-tabs-mode nil)
               (define-key c-mode-base-map (kbd "RET") 'newline-and-indent))))
-
-;; go mode
-;;--------------------------------------------------------------------------
-(when (locate-library "go-mode-load")
-  (require 'go-mode-load))
-
-;; lua mode
-;;--------------------------------------------------------------------------
-(when (locate-library "lua-mode")
-  (require 'lua-mode)
-  (add-hook 'lua-mode-hook
-            (lambda ()
-              (setq lua-indent-level 4)
-              (setq indent-tabs-mode nil))))
 
 ;; scala mode
 ;;--------------------------------------------------------------------------
